@@ -6,5 +6,5 @@ install:
 script:
   - "python -m unittest test_reviews_model.py"
   - "python -m unittest test_reviews_views.py"
-  # - test_user_model.py
-  # - test_user_views.py
+  - "python -m unittest test_user_model.py"
+  - "python -m unittest test_user_views.py"
