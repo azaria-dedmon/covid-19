@@ -3,7 +3,12 @@ from unittest import TestCase
 from sqlalchemy import exc
 
 from models import db, User
+<<<<<<< HEAD
 from app import create_app
+=======
+
+from app import app
+>>>>>>> covid project database structure
 
 
 class UserModelTestCase(TestCase):
@@ -14,6 +19,7 @@ class UserModelTestCase(TestCase):
         db.drop_all()
         db.create_all()
 
+<<<<<<< HEAD
         self.app = create_app('testing')
         self.client = self.app.test_client()
 
@@ -25,6 +31,16 @@ class UserModelTestCase(TestCase):
                     image=None,
                     state="California",
                     vax_date=None,
+=======
+        u1 = User(firstname="test", 
+                    lastname="user",
+                    username="testuser123", 
+                    email="test@test.com", 
+                    password="password", 
+                    image=None, 
+                    state="California", 
+                    vax_date=None, 
+>>>>>>> covid project database structure
                     covid_status=None)
         uid1 = 1111
         u1.id = uid1
@@ -56,17 +72,46 @@ class UserModelTestCase(TestCase):
         user.id = user_id
         db.session.commit()
 
+<<<<<<< HEAD
+=======
+        self.assertEqual(len(u.review), 0)
+
+    def test_signup(self):
+        """Are users able to sign up?"""
+
+        user = User.signup('test', 
+                            'dummy', 
+                            'test123', 
+                            'dummytest@test.com', 
+                            'password', 
+                            None,
+                            "Texas", 
+                            None, 
+                            None)
+        user_id = 99999
+        user.id = user_id
+        db.session.commit()
+
+>>>>>>> covid project database structure
         u_test = User.query.get(user.id)
         self.assertEqual(u_test.username, 'test123')
 
 
     def test_invalid_email_signup(self):
+<<<<<<< HEAD
         """ Invalid email sign up"""
         user = User.signup('test',
                             'dummy',
                             'test123',
                             None,
                             'password',
+=======
+        user = User.signup('test', 
+                            'dummy',
+                            'test123',
+                            None, 
+                            'password', 
+>>>>>>> covid project database structure
                             None,
                             "Texas",
                             None,

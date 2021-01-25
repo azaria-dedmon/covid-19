@@ -1,0 +1,13 @@
+body{
+    background-color: #c4b68f;
+}
+
+.login-container{
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 5%;
+}
+
+#change-form-link{
+    margin-left: 30%;
+}
