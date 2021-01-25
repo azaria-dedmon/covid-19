@@ -1,0 +1,40 @@
+body {
+  background-color: #c4b68f;
+}
+
+.form {
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 15%;
+}
+
+.msg {
+  color: red;
+}
+
+.about {
+  margin-top: 7%;
+  float: left;
+}
+
+.home-page-name {
+  text-align: center;
+}
+
+#profile-pic {
+  height: 150px;
+  width: 250px;
+}
+
+.container {
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 5%;
+  float: right;
+}
+
+.state-listing {
+  text-align: center;
+}
+
