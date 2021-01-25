@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='home-page-name'>
+    <h1>Hello, {{g.user.username}}!</h2>
+</div>
+<div class='about'>
+    <img src="{{ g.user.image }}" alt="Image for {{ g.user.username }}" id="profile-pic">
+    <h5>Name: {{g.user.firstname}} {{g.user.lastname}}</h5>
+    <h5>Email: {{g.user.email}}</h5>
+    <h5>State: {{g.user.state}}</h5>
+    <h5>Vaccination Date: {{g.user.vax_date}}</h5>
+    <h5>Covid Status: {{g.user.covid_status}}</h5>
+    <a href="/user/edit">Edit info</a>
+</div>
+<div class='container'>
+    <div class='state-listing'>
+        <h3>Here are {{g.user.state}}'s testing locations:</h3>
+    </div>  
+    <div class="jumbotron">
+        {% for location in testing_data%}
+            <h4>{{location["name"]}}</h4>
+            {% for place in location["physical_address"] %}
+                <p>{{place["address_1"]}}, {{place["city"]}}, 
+                    {{place["state_province"]}} {{place["postal_code"]}}
+                </p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
