@@ -5,8 +5,14 @@ python:
 install:
   - pip install -r requirements.txt
 
+services:
+  - postgresql 
+  
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - psql -c 'create database covidtest;' -U postgres
+
 script:
-  - "python -m unittest test_reviews_model.py"
-  - "python -m unittest test_reviews_views.py"
-  - "python -m unittest test_user_model.py"
-  - "python -m unittest test_user_views.py"
+  - "python -m unittest discover tests"
