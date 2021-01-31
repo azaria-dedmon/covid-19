@@ -17,6 +17,7 @@ before_script:
 
 script:
   - coverage run --source covid-app  -m unittest discover tests
-  
+
 after_success: 
   - coveralls
+  
