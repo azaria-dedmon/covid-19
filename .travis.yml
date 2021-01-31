@@ -16,7 +16,7 @@ before_script:
   - psql -c 'create database covidtest;' -U postgres
 
 script:
-  - coverage run --source=covid-app -m unittest discover tests
+  - coverage run --source covid-app -m unittest discover tests
 
 after_success:
   - coveralls
