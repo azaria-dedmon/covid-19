@@ -10,9 +10,13 @@ services:
   
 install:
   - pip install -r requirements.txt
+  - pip install coveralls
 
 before_script:
   - psql -c 'create database covidtest;' -U postgres
 
 script:
-  - "python -m unittest discover tests"
+  - coverage run --source covid-app  -m unittest discover tests
+  
+after_success: 
+  - coveralls
