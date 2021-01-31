@@ -3,18 +3,16 @@ python:
   - "3.7"
   
 install:
-  - pip install -r requirements.txt
-  - pip install coveralls
+  - pip install -e . --use-mirrors
 
 services:
   - postgresql 
   
 before_script:
+  - pip install -r requirements.txt --use-mirrors
   - psql -c 'create database covidtest;' -U postgres
 
 script:
-  - coverage run --source covid-app -m unittest discover tests
-
+- -m unittest discover tests coveralls/tests.py --doctest-modules --pep8 coveralls -v --cov coveralls --cov-report term-missing
 after_success:
   - coveralls
-  
