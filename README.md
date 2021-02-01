@@ -1,0 +1,1 @@
+[![Coverage Status](https://coveralls.io/repos/github/azaria-dedmon/covid-19/badge.svg)](https://coveralls.io/github/azaria-dedmon/covid-19)
