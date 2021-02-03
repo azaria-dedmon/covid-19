@@ -1,13 +1,59 @@
-body{
-    background-color: #c4b68f;
+body {
+  background-color: #c4b68f;
 }
 
-.login-container{
-    width: 50%;
-    margin-left: 25%;
-    margin-top: 5%;
+.container {
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 5%;
+  float: right;
 }
 
-#change-form-link{
-    margin-left: 30%;
+.form {
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 15%;
+}
+
+.about {
+  margin-top: 7%;
+  float: left;
+}
+
+#profile-pic {
+  height: 150px;
+  width: 250px;
+}
+
+.state-listing {
+  text-align: center;
+}
+
+.home-page-name {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #9c4141;
 }

@@ -10,7 +10,17 @@
 </head>
 <body>
     <div class="nav">
-      {% block title %}{% endblock %}
+      <div class="nav">
+        <ul>
+            {% if not g.user %}
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            {% else %}
+            <input type="text" placeholder="Search users">
+            <li><a href="/logout">Logout</a></li>
+            {% endif %}
+          </ul>
+    </div>
     </div>
   {% block content %} {% endblock %}
 </body>

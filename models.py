@@ -56,9 +56,11 @@ class User (db.Model):
         db.Text,
         nullable=True
     )
+    
     review = db.relationship('Review', backref='users')
 
     @classmethod
+<<<<<<< HEAD
 <<<<<<< HEAD
     def signup(cls, firstname, lastname, username,
             email, password, image, state, vax_date, covid_status):
@@ -72,6 +74,10 @@ class User (db.Model):
         """
 
 >>>>>>> covid project database structure
+=======
+    def signup(cls, firstname, lastname, username, email, password, image, state, vax_date, covid_status):
+        """Sign up user. Hashes password and adds user to system."""
+>>>>>>> login/logout functionality"
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
         user = User(
@@ -87,6 +93,18 @@ class User (db.Model):
 
         db.session.add(user)
         return user
+
+    @classmethod
+    def authenticate(cls, username, password):
+        
+        user = cls.query.filter_by(username=username).first()
+
+        if user:
+            is_auth = bcrypt.check_password_hash(user.password, password)
+            if is_auth:
+                return user
+
+        return False
 
 
 class Review (db.Model):   
@@ -114,15 +132,21 @@ class Review (db.Model):
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> login/logout functionality"
 testing_states = [('Arizona', 'Arizona'), ('California', 'California'),
                  ('Delaware', 'Delaware'), ('Florida', 'Florida'),
                  ('Massachusetts', 'Massachusetts'), ('Nevada', 'Nevada'),
                  ('New Jersey', 'New Jersey'), ('New York', 'New York'),
                  ('Pennsylvania', 'Pennsylvania'), ('Texas', 'Texas'),
                  ('Utah', 'Utah'), ('Washington', 'Washington')]
+<<<<<<< HEAD
 =======
 testing_states = ['Arizona', 'California', 'Delaware', 'Florida', 'Massachusetts',
                  'Nevada', 'New Jersey', 'New York', 'Pennsylvania', 'Texas',
                  'Utah', 'Washington']
+=======
+>>>>>>> login/logout functionality"
 
 >>>>>>> covid project database structure
