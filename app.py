@@ -44,11 +44,11 @@ def register_user():
                 vax_date=form.vax_date.data,
                 covid_status=form.covid_status.data)
             db.session.commit()
+            do_login(user)
+            return redirect('/user')
         except IntegrityError:
             flash("Invalid information", 'danger')
             return render_template('users/register.html', form=form)
-        do_login(user)
-        return redirect('/user')
     else:
         return render_template('users/register.html', form=form)
 

@@ -52,7 +52,6 @@ class UserViewTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
 
     def test_user_signup(self):
-
         user = User.signup('tester',
                             'person',
                             'test1234',
