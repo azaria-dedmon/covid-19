@@ -3,7 +3,6 @@ from unittest import TestCase
 from sqlalchemy import exc
 
 from models import db, User
-
 from app import app
 
 
@@ -43,24 +42,6 @@ class UserModelTestCase(TestCase):
         res = super().tearDown()
         db.session.rollback()
         return res
-
-    def test_user_model(self):
-        """Does basic model work?"""
-
-        u = User(
-            firstname='test',
-            lastname='case',
-            username="testuser",
-            email="test@testing.com",
-            password="HASHED_PASSWORD",
-            image=None,
-            state="Arizona"
-        )
-
-        db.session.add(u)
-        db.session.commit()
-
-        self.assertEqual(len(u.review), 0)
 
     def test_signup(self):
         """Are users able to sign up?"""
