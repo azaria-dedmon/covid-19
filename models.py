@@ -60,24 +60,9 @@ class User (db.Model):
     review = db.relationship('Review', backref='users')
 
     @classmethod
-<<<<<<< HEAD
-<<<<<<< HEAD
     def signup(cls, firstname, lastname, username,
             email, password, image, state, vax_date, covid_status):
         """Sign up user. Hashes password and adds user to system."""
-=======
-    def signup(cls, firstname, lastname, username, 
-            email, password, image, state, vax_date, covid_status):
-        """Sign up user.
-
-        Hashes password and adds user to system.
-        """
-
->>>>>>> covid project database structure
-=======
-    def signup(cls, firstname, lastname, username, email, password, image, state, vax_date, covid_status):
-        """Sign up user. Hashes password and adds user to system."""
->>>>>>> login/logout functionality"
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
         user = User(
@@ -129,24 +114,3 @@ class Review (db.Model):
         nullable=False  
     )   
     user = db.relationship('User', backref="reviews", passive_deletes=True)
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> login/logout functionality"
-testing_states = [('Arizona', 'Arizona'), ('California', 'California'),
-                 ('Delaware', 'Delaware'), ('Florida', 'Florida'),
-                 ('Massachusetts', 'Massachusetts'), ('Nevada', 'Nevada'),
-                 ('New Jersey', 'New Jersey'), ('New York', 'New York'),
-                 ('Pennsylvania', 'Pennsylvania'), ('Texas', 'Texas'),
-                 ('Utah', 'Utah'), ('Washington', 'Washington')]
-<<<<<<< HEAD
-=======
-testing_states = ['Arizona', 'California', 'Delaware', 'Florida', 'Massachusetts',
-                 'Nevada', 'New Jersey', 'New York', 'Pennsylvania', 'Texas',
-                 'Utah', 'Washington']
-=======
->>>>>>> login/logout functionality"
-
->>>>>>> covid project database structure
