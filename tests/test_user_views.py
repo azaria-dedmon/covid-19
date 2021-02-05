@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """User View tests."""
 
 from unittest import TestCase
@@ -26,42 +25,6 @@ class UserViewTestCase(TestCase):
                             "Texas",
                             None,
                             None)
-=======
-"""User view tests."""
-
-from unittest import TestCase
-from models import db, User
-from app import app, CURR_USER_KEY
-
-
-class UserViewTestCase(TestCase):
-
-    """Test case for user Views"""
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///covidtest'
-
-    app.config['WTF_CSRF_ENABLED'] = False
-    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-
-
-    db.drop_all()
-    db.create_all()
-
-    def setUp(self):
-        """Create test client, add sample data."""
-        User.query.delete()
-
-        self.client = app.test_client()
-
-        self.testuser = User.signup(firstname='test',
-                                    lastname='person',
-                                    username="testuser",
-                                    email="test@test.com",
-                                    password="testuser",
-                                    image=None,
-                                    state='Texas',
-                                    vax_date=None,
-                                    covid_status=None)
->>>>>>> login/logout functionality"
         self.uid = 1111
         self.testuser.id = self.uid
         db.session.commit()
@@ -132,7 +95,7 @@ class UserViewTestCase(TestCase):
                 db.session.commit()
 =======
     def test_homepage(self):
-        """Does user's state information appear on page?"""
+        """Does Logout link appear on user's homepage page?"""
         with self.client as c:
             with c.session_transaction() as sess:
                 sess[CURR_USER_KEY] = self.testuser.id
@@ -141,5 +104,9 @@ class UserViewTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
 
+<<<<<<< HEAD
             self.assertIn('Dallas', html)
 >>>>>>> login/logout functionality"
+=======
+            self.assertIn('Logout', html)
+>>>>>>> add login/logout functionality

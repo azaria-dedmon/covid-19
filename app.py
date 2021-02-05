@@ -1,15 +1,18 @@
+import os
 from flask import Flask, session, g, render_template, redirect, flash
-import requests
-from forms import RegisterUser, LoginUser
-from models import connect_db, User, db
+from forms import LoginUser
+from models import connect_db, User
 
 
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "application20212021"
+app.config['SECRET_KEY'] = os.environ.get("SECRET")
+
+print(app.config['SECRET_KEY'])
 
 connect_db(app)
+
 
 
 @app.before_request
@@ -28,32 +31,6 @@ def do_logout():
     """Method logsout user."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
-
-
-@app.route('/register', methods=["GET", "POST"])
-def register_user():
-    """Handles user signup."""
-    form = RegisterUser()
-
-    if form.validate_on_submit():
-        user = User.signup(
-                firstname=form.firstname.data,
-                lastname=form.lastname.data,
-                username=form.username.data,
-                email=form.email.data,
-                password=form.password.data,
-                image=form.image.data,
-                state=form.state.data,
-                vax_date=form.vax_date.data,
-                covid_status=form.covid_status.data)
-        db.session.commit()
-        if user:
-            do_login(user)
-            return redirect('/user')
-        flash("Username already taken", 'danger')
-        return render_template('users/register.html', form=form)
-
-    return render_template('users/register.html', form=form)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -86,9 +63,4 @@ def logout():
 @app.route('/user')
 def show_user():
     """Shows homepage of user."""
-    state = g.user.state
-    url = f'https://covid-19-testing.github.io/locations/{state.lower()}/complete.json'
-    res = requests.get(url)
-    testing_data = res.json()
-
-    return render_template('users/user_homepage.html', testing_data=testing_data)
+    return render_template('users/user_homepage.html')

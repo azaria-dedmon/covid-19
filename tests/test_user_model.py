@@ -3,12 +3,7 @@ from unittest import TestCase
 from sqlalchemy import exc
 
 from models import db, User
-<<<<<<< HEAD
 from app import create_app
-=======
-
-from app import app
->>>>>>> covid project database structure
 
 
 class UserModelTestCase(TestCase):
@@ -68,6 +63,7 @@ class UserModelTestCase(TestCase):
         db.session.rollback()
         return res
 
+<<<<<<< HEAD
     def test_signup(self):
         """Are users able to sign up?"""
         user = User.signup('test',
@@ -139,6 +135,8 @@ class UserModelTestCase(TestCase):
         with self.assertRaises(exc.IntegrityError) as context:
             db.session.commit()
 
+=======
+>>>>>>> add login/logout functionality
     def test_authentication(self):
         user = User.signup(firstname='test',
                             lastname='dummy',
