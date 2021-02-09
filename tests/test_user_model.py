@@ -3,7 +3,7 @@ from unittest import TestCase
 from sqlalchemy import exc
 
 from models import db, User
-from app import app
+from app import create_app
 
 
 class UserModelTestCase(TestCase):
@@ -12,8 +12,8 @@ class UserModelTestCase(TestCase):
     def setUp(self):
         """Create test client, add sample data."""
 
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///covidtest'
-
+        self.app = create_app('testing')
+        self.client = self.app.test_client()
         db.drop_all()
         db.create_all()
 
@@ -35,8 +35,6 @@ class UserModelTestCase(TestCase):
 
         self.u1 = u1
         self.uid1 = uid1
-
-        self.client = app.test_client()
 
     def tearDown(self):
         res = super().tearDown()
