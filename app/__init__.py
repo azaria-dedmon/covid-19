@@ -1,14 +1,14 @@
 """Application."""
 
-import os
-from flask import Flask
-from models import connect_db
+from flask import Flask, session, g, render_template, redirect, request, flash
+from forms import RegisterUser
+from models import connect_db, User, db
 from config import config
+from sqlalchemy.exc import IntegrityError
 
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get("SECRET")
 
 def create_app(config_name):
     app.config.from_object(config[config_name])

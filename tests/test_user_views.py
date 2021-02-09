@@ -2,26 +2,19 @@
 
 from unittest import TestCase
 from models import db, User
-from app import app, CURR_USER_KEY
+from app import create_app, CURR_USER_KEY
 from sqlalchemy.exc import InvalidRequestError
 
 class UserViewTestCase(TestCase):
     """Test views for users."""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///covidtest'
-    app.config['WTF_CSRF_ENABLED'] = False
-    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-
-    db.drop_all()
-    db.create_all()
-
     def setUp(self):
         """Create test client, add sample data."""
-        User.query.delete()
+        db.drop_all()
+        db.create_all()
 
-        self.client = app.test_client()
-
-        app.config['SECRET_KEY'] = 'secrets'
+        self.app = create_app('testing')
+        self.client = self.app.test_client()
 
         self.testuser = User.signup('test',
                             'dummy',
@@ -34,7 +27,6 @@ class UserViewTestCase(TestCase):
                             None)
         self.uid = 1111
         self.testuser.id = self.uid
-
         db.session.commit()
 
     def tearDown(self):
@@ -66,7 +58,7 @@ class UserViewTestCase(TestCase):
 
         db.session.commit()
 
-        with app.test_client() as client:
+        with self.client as client:
             resp = client.post('/register', data={'firstname': 'tester',
                                                   'lastname': 'person',
                                                   'username': 'test12345',
@@ -78,12 +70,11 @@ class UserViewTestCase(TestCase):
                                                   'covid_status': None},
                                                    follow_redirects=True)
             html = resp.get_data(as_text=True)
-
             self.assertEqual(resp.status_code, 200)
             self.assertIn("dummytest22@test.com", html)
 
     def test_invalid_user_signup(self):
-        with app.test_client() as client:
+        with self.client as client:
             resp = client.post('/register', data={'firstname': 'tester',
                                                   'lastname': 'person',
                                                   'username': 'test123',

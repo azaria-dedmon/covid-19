@@ -11,11 +11,11 @@ class UserModelTestCase(TestCase):
 
     def setUp(self):
         """Create test client, add sample data."""
+        db.drop_all()
+        db.create_all()
 
         self.app = create_app('testing')
         self.client = self.app.test_client()
-        db.drop_all()
-        db.create_all()
 
         u1 = User(firstname="test",
                     lastname="user",
@@ -61,6 +61,7 @@ class UserModelTestCase(TestCase):
 
 
     def test_invalid_email_signup(self):
+        """ Invalid email sign up"""
         user = User.signup('test',
                             'dummy',
                             'test123',
