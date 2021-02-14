@@ -16,7 +16,6 @@ def create_app(config_name):
     connect_db(app)
     return app
 
-
 @app.before_request
 def add_user_to_g():
     """If user has logged in, add current user to Flask global object."""
@@ -31,7 +30,7 @@ def do_login(user):
 
 
 def do_logout():
-	"""Method logsout user."""
+    """Method logsout user."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
@@ -44,15 +43,15 @@ def register_user():
     if form.validate_on_submit():
         try:
             user = User.signup(
-                firstname=form.firstname.data,
-                lastname=form.lastname.data,
-                username=form.username.data,
-                email=form.email.data,
-                password=form.password.data,
-                image=form.image.data,
-                state=form.state.data,
-                vax_date=form.vax_date.data,
-                covid_status=form.covid_status.data)
+            firstname=form.firstname.data,
+            lastname=form.lastname.data,
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+            image=form.image.data,
+            state=form.state.data,
+            vax_date=form.vax_date.data,
+            covid_status=form.covid_status.data)
             db.session.commit()
             do_login(user)
             return redirect('/user')
@@ -79,9 +78,8 @@ def login():
             do_login(user)
             flash(f"Hello, {user.username}!", "success")
             return redirect("/user")
-        
         flash("Invalid credentials.", 'danger')
-	
+
     return render_template('users/login.html', form=form)
 
 
@@ -91,3 +89,9 @@ def logout():
     do_logout()
     flash("Success!", "success")
     return redirect("/")
+
+
+@app.route('/')
+def show_homepage():
+    """Shows website homepage"""
+    return render_template('homepage.html')

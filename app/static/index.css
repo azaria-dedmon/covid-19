@@ -9,7 +9,6 @@ body {
   float: right;
 }
 
-
 .form {
   text-align: center;
   width: 50%;
@@ -39,22 +38,17 @@ body {
   text-align: center;
 }
 
-#profile-pic {
-  height: 150px;
-  width: 250px;
-}
-
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
-}	
+}
 
 li {
   float: right;
-}	
+}
 
 
 li a {
@@ -67,15 +61,4 @@ li a {
 
 li a:hover {
   background-color: #9c4141;
-}
-
-.container {
-  width: 50%;
-  margin-left: 25%;
-  margin-top: 5%;
-  float: right;
-}
-
-.state-listing {
-  text-align: center;
 }

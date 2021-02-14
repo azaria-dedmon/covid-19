@@ -93,7 +93,6 @@ class UserViewTestCase(TestCase):
             with self.assertRaises(InvalidRequestError):
                 db.session.commit()
 
-    
     def test_user_login(self):
         """Can users login sucessfully?"""
         user = User.signup('tester',
@@ -139,13 +138,13 @@ class UserViewTestCase(TestCase):
             self.assertIn('Hello, test', html)
 
     def test_user_logout(self):
-         with self.client as c:
+        """Can users logout successfully?"""
+        with self.client as c:
             with c.session_transaction() as sess:
                 sess[CURR_USER_KEY] = self.testuser.id
                 sess[CURR_USER_KEY] = None
 
             resp = c.get('/logout', follow_redirects=True)
-
             html = resp.get_data(as_text=True)
             self.assertEqual(resp.status_code, 200)
             self.assertIn('Covid Testing', html)
