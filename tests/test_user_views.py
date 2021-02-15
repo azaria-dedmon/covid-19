@@ -92,3 +92,59 @@ class UserViewTestCase(TestCase):
 
             with self.assertRaises(InvalidRequestError):
                 db.session.commit()
+
+    def test_user_login(self):
+        """Can users login sucessfully?"""
+        user = User.signup('tester',
+                            'person',
+                            'test1234',
+                            'dummytest2@test.com',
+                            'password',
+                            None,
+                            "Texas",
+                            None,
+                            None)
+        uid = 22222
+        user.id = uid
+
+        db.session.commit()
+        with self.client as c:
+            resp = c.post('/login', data={'username': 'test1234',
+                                          'password': 'password'},follow_redirects=True)
+            html = resp.get_data(as_text=True)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("dummytest2@test.com", html)
+
+    def test_invalid_login(self):
+        """Does authentication fail with invalid credentials are provided?"""
+        with self.client as c:
+            resp = c.post('/login', data={'username': self.testuser.username,
+                                          'password': self.testuser.password},follow_redirects=True)
+
+            html = resp.get_data(as_text=True)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Need to register?', html)
+
+    def test_homepage(self):
+        """Are we on the current user's homepage?"""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            resp = c.get('/user')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Hello, test', html)
+
+    def test_user_logout(self):
+        """Can users logout successfully?"""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+                sess[CURR_USER_KEY] = None
+
+            resp = c.get('/logout', follow_redirects=True)
+            html = resp.get_data(as_text=True)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Covid Testing', html)

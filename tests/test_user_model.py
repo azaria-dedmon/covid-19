@@ -75,3 +75,28 @@ class UserModelTestCase(TestCase):
         user.id = user_id
         with self.assertRaises(exc.IntegrityError) as context:
             db.session.commit()
+
+
+    def test_authentication(self):
+        user = User.signup(firstname='test',
+                            lastname='dummy',
+                            username='test123',
+                            email='tester@test.com',
+                            password='password',
+                            image=None,
+                            state='Texas',
+                            vax_date=None,
+                            covid_status=None)
+
+        user_id = 99999
+        user.id = user_id
+        db.session.commit()
+
+        user = User.authenticate('test123', 'password')
+        db.session.commit()
+
+        self.assertEqual(user.username, 'test123')
+
+
+    def test_invalid_username_authentication(self):
+        self.assertFalse(User.authenticate("badusername", "password"))

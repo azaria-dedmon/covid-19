@@ -14,3 +14,8 @@ class RegisterUser(FlaskForm):
     state = SelectField('State', choices=testing_states, validators=[DataRequired()])
     vax_date = StringField('Vaccination Date')
     covid_status = StringField('Covid Status')
+
+class LoginUser(FlaskForm):
+    """Form for user login"""
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
