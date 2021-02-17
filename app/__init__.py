@@ -110,3 +110,13 @@ def show_state_locations():
 
     locations = get_testing_locations(state, API_BASE_URL)
     return render_template('location.html', locations=locations)
+
+
+@app.route('/search-user')
+def get_searched_user():
+    """Search other users"""
+
+    username = request.args.get('username')
+    searched_user =  User.query.filter_by(username=username).first()
+
+    return render_template('users/searched_user.html', searched_user=searched_user)
