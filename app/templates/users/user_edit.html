@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Covid Testing</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+    <div class="nav">
+        <ul>
+            <input type="text" placeholder="Search users">
+            <li><a href="/logout">Logout</a></li>
+            <li><a href="/user">Home</a></li>
+          </ul>
+    </div>
+    <div class="form">
+        <form method="POST" id='login-form'>
+            {{ form.hidden_tag() }}
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                    {% for error in field.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                    {{ field(placeholder=field.label.text, class="form-control") }}
+                {% endfor %}
+            <button class="btn btn-primary btn-block btn-lg">Submit Changes</button>
+        </form>
+        <a href="/user/delete">Delete Account</a>
+        </div>
+</body>
+</html>

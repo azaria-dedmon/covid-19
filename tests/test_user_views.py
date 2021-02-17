@@ -170,3 +170,38 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
             self.assertIn('test', html)
 
+    def test_edit_profile(self):
+        """Can user's edit their profile?"""
+        user = User.signup('tester',
+                            'person',
+                            'test1234',
+                            'dummytest2@test.com',
+                            'password',
+                            None,
+                            "Texas",
+                            None,
+                            None)
+        uid = 22222
+        user.id = uid
+
+        db.session.commit()
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = user.id
+            resp = c.get('/user/edit')
+            html = resp.get_data(as_text=True)
+            self.assertIn('tester', html)
+
+            resp = c.post('/user/edit', data={'firstname': 'testme',
+                                                  'lastname': 'person',
+                                                  'username': 'test12345',
+                                                  'email': 'dummytest22@test.com',
+                                                  'image': None,
+                                                  'state': 'Texas',
+                                                  'vax_date': None,
+                                                  'covid_status': None},
+                                                   follow_redirects=True)
+            html = resp.get_data(as_text=True)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('testme', html)
+
