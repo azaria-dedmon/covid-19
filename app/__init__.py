@@ -1,13 +1,15 @@
 """Application."""
-
+import os
+import requests
 from flask import Flask, session, g, render_template, redirect, request, flash
 from forms import RegisterUser, LoginUser
-from models import connect_db, User, db
+from models import connect_db, User, db, testing_states
 from config import config
 from sqlalchemy.exc import IntegrityError
+from .refactor import test_code
 
 CURR_USER_KEY = "curr_user"
-
+API_BASE_URL = 'http://www.mapquestapi.com/geocoding/v1/address'
 app = Flask(__name__)
 
 def create_app(config_name):
@@ -30,7 +32,7 @@ def do_login(user):
 
 
 def do_logout():
-    """Method logsout user."""
+    """Method logs out user."""
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
@@ -65,7 +67,11 @@ def register_user():
 @app.route('/user')
 def show_user():
     """Shows homepage of user."""
-    return render_template('users/user_homepage.html')
+    state = g.user.state
+    url = f'https://covid-19-testing.github.io/locations/{state.lower()}/complete.json'
+    res = requests.get(url)
+    testing_data = res.json()
+    return render_template('users/user_homepage.html', testing_data=testing_data)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -88,10 +94,19 @@ def logout():
     """Handle user logout."""
     do_logout()
     flash("Success!", "success")
-    return redirect("/")
+    return redirect('/')
 
 
 @app.route('/')
 def show_homepage():
     """Shows website homepage"""
-    return render_template('homepage.html')
+    return render_template('homepage.html', testing_states=testing_states)
+
+
+@app.route('/location')
+def show_state_locations():
+    """Return selected state from drop down menu"""
+    state = request.args.get('state')
+
+    latsLngs = test_code(state, API_BASE_URL)
+    return render_template('location.html', latsLngs=latsLngs)

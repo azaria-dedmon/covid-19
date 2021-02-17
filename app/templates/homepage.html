@@ -1,4 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div class="contain">
+    <div class="jumbotron">
+      <h1>COVID-19 testing sites</h1>
+      <p id='first-para'>
+        Welcome to the Covid-19 testing website where you can search testing locations
+        in the provided states, sign up for an account, post your test results as well 
+        as search the test results of people that you know.
+      </p>
+      <p>
+        Covid-19 is a highly infectious disease caused by the novel coronavirus.
+        This illness spreads with ease through close contact (within 6ft),
+        exposure to respiratory droplets and has also been declared as airborne.
+        At this point, most of us are knowledgeable on the disease and it's symtpoms,
+        but as a reminder, if you are experiencing:
+        <span id='symptoms'>
+            Fever or chills,
+            New loss of smell,
+            Cough or
+            Shortness of breath
+        </span>
+        please seek medical attention immediately. Although this list is not exhaustive of
+        symptoms caused by Covid, it is meant to give a general idea of what to look out for.
+      </p>
+    </div>
+    <form action="/location">
+        <label for="state">Find testing locations in your state:</label>
+        <select id="state" name="state">
+            {% for state in testing_states %}
+                <option>{{ state[0] }}</option>
+            {% endfor %} 
+        </select>
+        <button type='submit'>Search</button>
+    </form>
+    {% if g.user %}
+    <a href="/user">Go to user homepage</a>
+    {% endif %}
+  </div>
 {% endblock %} 

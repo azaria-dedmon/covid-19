@@ -1,9 +1,9 @@
 """User View tests."""
-
 from unittest import TestCase
 from models import db, User
 from app import create_app, CURR_USER_KEY
 from sqlalchemy.exc import InvalidRequestError
+
 
 class UserViewTestCase(TestCase):
     """Test views for users."""
@@ -148,3 +148,13 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
             self.assertEqual(resp.status_code, 200)
             self.assertIn('Covid Testing', html)
+
+    def test_map_locations(self):
+        """Does the map show testing locations?"""
+        with self.client as c:
+            resp = c.get('/location?state=California')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+
+            self.assertIn('San Francisco', html)
