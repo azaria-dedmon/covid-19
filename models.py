@@ -49,12 +49,10 @@ class User (db.Model):
         nullable=False  
     )   
     vax_date = db.Column(   
-        db.Text,
-        nullable=True  
+        db.Text 
     )   
     covid_status = db.Column(   
-        db.Text,
-        nullable=True
+        db.Text
     )
     review = db.relationship('Review', backref='users')
 
@@ -118,6 +116,6 @@ class Review (db.Model):
 testing_states = [('Arizona', 'Arizona'), ('California', 'California'),
                  ('Delaware', 'Delaware'), ('Florida', 'Florida'),
                  ('Massachusetts', 'Massachusetts'), ('Nevada', 'Nevada'),
-                 ('New Jersey', 'New Jersey'), ('New York', 'New York'),
+                 ('New-Jersey', 'New-Jersey'), ('New-York', 'New-York'),
                  ('Pennsylvania', 'Pennsylvania'), ('Texas', 'Texas'),
                  ('Utah', 'Utah'), ('Washington', 'Washington')]
