@@ -39,19 +39,19 @@
         var geojson = {
           type: 'FeatureCollection',
           features: [
-              {% for obj in latsLngs %}
+              {% for obj in locations%}
                 {
                     type: 'Feature',
                     geometry: {
                     type: 'Point',
                     coordinates: [
-                        {{latsLngs[obj]['lng']}},
-                        {{latsLngs[obj]['lat']}}
+                        {{locations[obj]['lng']}},
+                        {{locations[obj]['lat']}}
                     ]
                     },
                     properties: {
-                        title: '{{latsLngs[obj]['place']}}',
-                        description: '{{latsLngs[obj]['phone']}}'
+                        title: '{{locations[obj]['place']}}',
+                        description: '{{locations[obj]['phone']}}'
                     }
                 },
             {% endfor %}

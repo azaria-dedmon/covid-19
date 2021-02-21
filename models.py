@@ -5,13 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 bcrypt = Bcrypt()  
 db = SQLAlchemy()  
- 
-def connect_db(app):    
-    db.app = app    
-    db.init_app(app)
-    db.create_all()
-        
-class User (db.Model):
+
+
+class User(db.Model):
     """User in the system"""
     __tablename__ = "users" 
 
@@ -42,14 +38,14 @@ class User (db.Model):
         nullable=False  
     )   
     image = db.Column(  
-        db.Text 
+        db.Text
     )   
     state = db.Column(  
         db.Text,    
         nullable=False  
     )   
     vax_date = db.Column(   
-        db.Text 
+        db.Text
     )   
     covid_status = db.Column(   
         db.Text
@@ -89,7 +85,7 @@ class User (db.Model):
         return False
 
 
-class Review (db.Model):   
+class Review(db.Model):   
     """Reviews made by users for testing locations"""
     __tablename__ = "reviews" 
 
@@ -112,6 +108,10 @@ class Review (db.Model):
     )   
     user = db.relationship('User', backref="reviews", passive_deletes=True)
 
+def connect_db(app):    
+    db.app = app    
+    db.init_app(app)
+    db.create_all()
 
 testing_states = [('Arizona', 'Arizona'), ('California', 'California'),
                  ('Delaware', 'Delaware'), ('Florida', 'Florida'),

@@ -21,11 +21,15 @@
         {% for location in testing_data%}
             <h4>{{location["name"]}}</h4>
             {% for place in location["physical_address"] %}
-                <p>{{place["address_1"]}}, {{place["city"]}}, 
+                <a href="/location?state={{state}}">
+                    <p>{{place["address_1"]}}, {{place["city"]}}, 
                     {{place["state_province"]}} {{place["postal_code"]}}
-                </p>
+                    </p>
+                </a>
             {% endfor %}
         {% endfor %}
     </div>
 </div>
 {% endblock %}
+
+

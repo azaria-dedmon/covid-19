@@ -16,8 +16,12 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/register">Register</a></li>
             {% else %}
-            <input type="text" placeholder="Search users">
+            <form action="/search-user" method="get">
+              <input type="text" name="username" placeholder="Search users">
+              <input type="submit" value="search">
+            </form>
             <li><a href="/logout">Logout</a></li>
+            <li><a href="/user">Home</a></li>
             {% endif %}
           </ul>
     </div>

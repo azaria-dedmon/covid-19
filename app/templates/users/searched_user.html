@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class='home-page-name'>
+    {% if searched_user %}
+    <h1>{{ searched_user.username }}</h1>
+        <img src="{{ searched_user.image }}" alt="Image for {{ searched_user.username }}" id="profile-pic">
+        <h3>Name: {{ searched_user.firstname }} {{ searched_user.lastname }}</h3>
+        <h3>State: {{ searched_user.state }}</h3>
+        <h3>Vaccination Date: {{ searched_user.vax_date }}</h3>
+        <h3>Covid Status: {{ searched_user.covid_status }}</h3>
+    {% else %}
+        <h1>No user found</h1>
+    {% endif %}
+</div>
+
+{% endblock %}

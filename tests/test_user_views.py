@@ -1,6 +1,6 @@
 """User View tests."""
 from unittest import TestCase
-from models import db, User
+from models import db, User, bcrypt
 from app import create_app, CURR_USER_KEY
 from sqlalchemy.exc import InvalidRequestError
 
@@ -158,3 +158,115 @@ class UserViewTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
 
             self.assertIn('San Francisco', html)
+
+    def test_edit_profile(self):
+        """Can user's edit their profile?"""
+        user = User.signup('tester',
+                            'person',
+                            'test1234',
+                            'dummytest2@test.com',
+                            'password',
+                            None,
+                            "Texas",
+                            None,
+                            None)
+        uid = 22222
+        user.id = uid
+
+        db.session.commit()
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = user.id
+            resp = c.get('/user/edit')
+            html = resp.get_data(as_text=True)
+            self.assertIn('tester', html)
+
+            resp = c.post('/user/edit', data={'firstname': 'testme',
+                                                  'lastname': 'person',
+                                                  'username': 'test12345',
+                                                  'email': 'dummytest22@test.com',
+                                                  'image': None,
+                                                  'state': 'Texas',
+                                                  'vax_date': None,
+                                                  'covid_status': None},
+                                                   follow_redirects=True)
+            html = resp.get_data(as_text=True)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('testme', html)
+        
+
+    def test_user_delete(self):
+        """Can a user delete their account?"""
+        user = User.signup('tester',
+                            'person',
+                            'test1234',
+                            'dummytest2@test.com',
+                            'password',
+                            None,
+                            "Texas",
+                            None,
+                            None)
+        uid = 22222
+        user.id = uid
+
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = user.id
+
+            resp = c.get('/user/delete')
+            html = resp.get_data(as_text=True)
+            self.assertIn('verify', html)
+            
+            resp = c.post('/user/delete', data={'password': 'password'},
+                                                   follow_redirects=True)
+
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200) 
+            self.assertIn('Covid-19', html)
+
+    def test_invalid_user_delete(self):
+        """Can a user delete their account?"""
+        user = User.signup(firstname='tester',
+                           lastname='person',
+                           username='test1234',
+                           email='dummytest2@test.com',
+                           password='password',
+                           image= None,
+                           state="Texas",
+                           vax_date=None,
+                           covid_status=None)
+        uid = 22222
+        user.id = uid
+
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = user.id
+
+            resp = c.get('/user/delete')
+            html = resp.get_data(as_text=True)
+            self.assertIn('verify', html)
+            
+            resp = c.post('/user/delete', data={'password': 'blahhhhahahaha'},
+                                                        follow_redirects=True)
+
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("verify", html)
+
+    def test_user_search(self):
+        """Can user's search for other users?"""
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id  
+
+            resp = c.get(f'/search-user?username={self.testuser.username}')
+            html = resp.get_data(as_text=True)
+            self.assertIn('test', html)
+

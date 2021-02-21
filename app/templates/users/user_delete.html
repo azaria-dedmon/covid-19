@@ -9,13 +9,7 @@
   <link rel="stylesheet" href="/static/index.css">
 </head>
 <body>
-    <div class="nav">
-        <ul>
-            <input type="text" placeholder="Search users">
-            <li><a href="/logout">Logout</a></li>
-            <li><a href="/user">Home</a></li>
-          </ul>
-    </div>
+    <h4 id='delete-acct'>Please verify your account password to confirm account deletion</h4>
     <div class="form">
         <form method="POST" id='login-form'>
             {{ form.hidden_tag() }}
@@ -25,9 +19,8 @@
                     {% endfor %}
                     {{ field(placeholder=field.label.text, class="form-control") }}
                 {% endfor %}
-            <button class="btn btn-primary btn-block btn-lg">Submit Changes</button>
+            <button class="btn btn-primary btn-block btn-lg">Delete Account</button>
         </form>
-        <a href="/user/delete">Delete Account</a>
+        <a href="/user">Go home</a>
         </div>
 </body>
-</html>
