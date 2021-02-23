@@ -156,5 +156,17 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-
             self.assertIn('San Francisco', html)
+
+
+    def test_user_search(self):
+        """Can user's search for other users?"""
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            resp = c.get(f'/search-user?username={self.testuser.username}')
+            html = resp.get_data(as_text=True)
+            self.assertIn('test', html)
+
