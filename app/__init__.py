@@ -2,7 +2,7 @@
 import os
 import requests
 from flask import Flask, session, g, render_template, redirect, request, flash
-from forms import RegisterUser, LoginUser
+from forms import RegisterUser, LoginUser, EditUser
 from models import connect_db, User, db, testing_states
 from config import config
 from sqlalchemy.exc import IntegrityError
@@ -120,3 +120,21 @@ def get_searched_user():
     searched_user =  User.query.filter_by(username=username).first()
 
     return render_template('users/searched_user.html', searched_user=searched_user)
+
+
+@app.route('/user/edit', methods=["GET", "POST"])
+def edit_user_profile():
+    """Edit the user's profile"""
+    form = EditUser(obj=g.user)
+    if g.user and form.validate_on_submit():
+        g.user.firstname = form.firstname.data
+        g.user.lastname = form.lastname.data
+        g.user.username = form.username.data
+        g.user.email = form.email.data
+        g.user.image = form.image.data
+        g.user.state = form.state.data
+        g.user.vax_date = form.vax_date.data
+        g.user.covid_status = form.covid_status.data
+        db.session.commit()
+        return redirect('/user')
+    return render_template('users/user_edit.html', form=form)

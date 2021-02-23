@@ -19,7 +19,7 @@
     </div>  
     <div class="jumbotron">
         {% for location in testing_data%}
-            <h4>{{location["name"]}}</h4>
+            <a href="/location?state={{state}}"><h4>{{location["name"]}}</h4></a>
             {% for place in location["physical_address"] %}
                 <p>{{place["address_1"]}}, {{place["city"]}}, 
                     {{place["state_province"]}} {{place["postal_code"]}}

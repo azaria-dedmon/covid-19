@@ -19,3 +19,14 @@ class LoginUser(FlaskForm):
     """Form for user login"""
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
+
+class EditUser(FlaskForm):
+    """Form for editing user profile"""
+    firstname = StringField('First Name')
+    lastname = StringField('Last Name')
+    username = StringField('Username')
+    email = StringField('Email')
+    image = StringField('Image Url')
+    state = SelectField('State', choices=testing_states)
+    vax_date = StringField('Vaccination Date')
+    covid_status = StringField('Covid Status')
