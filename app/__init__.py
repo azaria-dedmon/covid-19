@@ -2,7 +2,7 @@
 import os
 import requests
 from flask import Flask, session, g, render_template, redirect, request, flash
-from forms import RegisterUser, LoginUser
+from forms import RegisterUser, LoginUser, EditUser
 from models import connect_db, User, db, testing_states
 from config import config
 from sqlalchemy.exc import IntegrityError
@@ -71,7 +71,7 @@ def show_user():
     url = f'https://covid-19-testing.github.io/locations/{state.lower()}/complete.json'
     res = requests.get(url)
     testing_data = res.json()
-    return render_template('users/user_homepage.html', testing_data=testing_data)
+    return render_template('users/user_homepage.html', testing_data=testing_data, state=state)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -110,3 +110,30 @@ def show_state_locations():
 
     locations = get_testing_locations(state, API_BASE_URL)
     return render_template('location.html', locations=locations)
+
+
+@app.route('/search-user')
+def get_searched_user():
+    """Search other users"""
+
+    username = request.args.get('username')
+    searched_user =  User.query.filter_by(username=username).first()
+
+    return render_template('users/searched_user.html', searched_user=searched_user)
+
+@app.route('/user/edit', methods=["GET", "POST"])
+def edit_user_profile():
+    """Edit the user's profile"""
+    form = EditUser(obj=g.user)
+    if g.user and form.validate_on_submit():
+        g.user.firstname = form.firstname.data
+        g.user.lastname = form.lastname.data
+        g.user.username = form.username.data
+        g.user.email = form.email.data
+        g.user.image = form.image.data
+        g.user.state = form.state.data
+        g.user.vax_date = form.vax_date.data
+        g.user.covid_status = form.covid_status.data
+        db.session.commit()
+        return redirect('/user')
+    return render_template('users/user_edit.html', form=form)
