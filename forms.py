@@ -30,3 +30,7 @@ class EditUser(FlaskForm):
     state = SelectField('State', choices=testing_states)
     vax_date = StringField('Vaccination Date')
     covid_status = StringField('Covid Status')
+
+class DeleteUser(FlaskForm):
+    """Form for checking user's password before account deletion"""
+    password = PasswordField('Password')

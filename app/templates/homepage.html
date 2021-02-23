@@ -2,6 +2,13 @@
 {% block content %}
 <div class="contain">
     <div class="jumbotron">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for msg in messages %}
+            <p id="delete-acct-msg">{{msg}}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
       <h1>COVID-19 testing sites</h1>
       <p id='first-para'>
         Welcome to the Covid-19 testing website where you can search testing locations

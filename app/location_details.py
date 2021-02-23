@@ -2,7 +2,6 @@ import os
 import requests
 
 def get_testing_locations(state, API_BASE_URL):
-
     key = os.environ.get('key')
 
     url = f'https://covid-19-testing.github.io/locations/{state.lower()}/complete.json'
@@ -15,6 +14,8 @@ def get_testing_locations(state, API_BASE_URL):
             for o in obj["physical_address"]:
                     addy = o["address_1"]
                     city = o["city"]
+          if obj["phones"]:
+            for o in obj["phones"]:
                     phone = obj["phones"][0]["number"]
 
             location = f'{addy} {city}'
