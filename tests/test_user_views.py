@@ -205,3 +205,88 @@ class UserViewTestCase(TestCase):
             self.assertEqual(resp.status_code, 200)
             self.assertIn('testme', html)
 
+    def test_user_delete(self):
+        """Can a user delete their account?"""
+        user = User.signup('tester',
+                            'person',
+                            'test1234',
+                            'dummytest2@test.com',
+                            'password',
+                            None,
+                            "Texas",
+                            None,
+                            None)
+        uid = 22222
+        user.id = uid
+
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = user.id
+
+            resp = c.get('/user/delete')
+            html = resp.get_data(as_text=True)
+            self.assertIn('verify', html)
+
+            resp = c.post('/user/delete', data={'password': 'password'},
+                                                   follow_redirects=True)
+
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Covid-19', html)
+
+    def test_invalid_user_delete(self):
+        """Can a user delete their account?"""
+        user = User.signup(firstname='tester',
+                           lastname='person',
+                           username='test1234',
+                           email='dummytest2@test.com',
+                           password='password',
+                           image= None,
+                           state="Texas",
+                           vax_date=None,
+                           covid_status=None)
+        uid = 22222
+        user.id = uid
+
+        db.session.commit()
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = user.id
+
+            resp = c.get('/user/delete')
+            html = resp.get_data(as_text=True)
+            self.assertIn('verify', html)
+    
+            resp = c.post('/user/delete', data={'password': 'blahhhh'},
+                                                        follow_redirects=True)
+
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("verify", html)
+    
+
+    def test_user_add_review(self):
+        """Can a user add a review for a testing location?"""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            resp = c.get('/add/location/review')
+            html = resp.get_data(as_text=True)
+            self.assertIn('love', html)
+    
+            resp = c.post('/add/location/review', data={'test-site': '9191 S Polk Street Dallas',
+                                                        'description': 'Great!',
+                                                        'user_id': self.testuser.id},
+                                                        follow_redirects=True)
+
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("love", html)
+    

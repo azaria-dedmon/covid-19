@@ -2,14 +2,16 @@
 import os
 import requests
 from flask import Flask, session, g, render_template, redirect, request, flash
-from forms import RegisterUser, LoginUser, EditUser
-from models import connect_db, User, db, testing_states
+from flask_bcrypt import Bcrypt
+from forms import RegisterUser, LoginUser, EditUser, DeleteUser
+from models import connect_db, User, db, testing_states, Review
 from config import config
 from sqlalchemy.exc import IntegrityError
 from .location_details import get_testing_locations
 
 CURR_USER_KEY = "curr_user"
 API_BASE_URL = 'http://www.mapquestapi.com/geocoding/v1/address'
+bcrypt = Bcrypt()
 app = Flask(__name__)
 
 def create_app(config_name):
@@ -138,3 +140,39 @@ def edit_user_profile():
         db.session.commit()
         return redirect('/user')
     return render_template('users/user_edit.html', form=form)
+
+
+@app.route('/user/delete', methods=["GET", "POST"])
+def delete_user():
+    """Delete the user's account"""
+    form = DeleteUser()
+
+    if form.validate_on_submit():
+        if bcrypt.check_password_hash(g.user.password, form.password.data):
+            do_logout()
+
+            db.session.delete(g.user)
+            db.session.commit()
+            flash("Account was successfully deleted!", "success")
+            return redirect('/')
+        else:
+            flash("Invalid Password", "danger")
+            return render_template('users/user_delete.html', form=form)
+
+    return render_template('users/user_delete.html', form=form)
+
+
+@app.route('/add/location/review', methods=["GET", "POST"])
+def add_location_review():
+    """Allow users to leave reviews for testing locations"""
+    state = g.user.state
+    locations = get_testing_locations(state, API_BASE_URL)
+    if request.method == 'POST':
+        test_site = request.form.get('test-site')
+        description = request.form.get('description')
+        review = Review(location=test_site, description=description, user_id=g.user.id)
+        db.session.add(review)
+        db.session.commit()
+        return redirect('/add/location/review')
+
+    return render_template('reviews/add_location_review.html', locations=locations)

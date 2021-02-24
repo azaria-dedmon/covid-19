@@ -72,7 +72,6 @@ li {
   float: right;
 }
 
-
 li a {
   display: block;
   color: white;
@@ -101,4 +100,14 @@ li a:hover {
 .mapboxgl-popup-content {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
+}
+
+#delete-acct {
+  text-align: center;
+  margin-top: 5%;
+}
+
+#delete-acct-msg {
+  color: green;
+  font-weight: bold;
 }
