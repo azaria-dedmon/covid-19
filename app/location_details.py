@@ -2,6 +2,7 @@ import os
 import requests
 
 def get_testing_locations(state, API_BASE_URL):
+        
     key = os.environ.get('key')
 
     url = f'https://covid-19-testing.github.io/locations/{state.lower()}/complete.json'
