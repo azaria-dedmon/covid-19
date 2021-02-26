@@ -111,3 +111,11 @@ li a:hover {
   color: green;
   font-weight: bold;
 }
+
+.reviews {
+  background-color: #d6d6d2;
+}
+
+#review_user {
+  font-weight: bold;
+}

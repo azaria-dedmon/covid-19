@@ -4,7 +4,7 @@ import requests
 from flask import Flask, session, g, render_template, redirect, request, flash
 from flask_bcrypt import Bcrypt
 from forms import RegisterUser, LoginUser, EditUser, DeleteUser
-from models import connect_db, User, db, testing_states
+from models import connect_db, User, db, testing_states, Review
 from config import config
 from sqlalchemy.exc import IntegrityError
 from .location_details import get_testing_locations
@@ -160,3 +160,27 @@ def delete_user():
             return render_template('users/user_delete.html', form=form)
 
     return render_template('users/user_delete.html', form=form)
+
+
+@app.route('/add/location/review', methods=["GET", "POST"])
+def add_location_review():
+    """Allow users to leave reviews for testing locations"""
+    state = g.user.state
+    locations = get_testing_locations(state, API_BASE_URL)
+    if request.method == 'POST':
+        test_site = request.form.get('test-site')
+        description = request.form.get('description')
+        review = Review(location=test_site, description=description, user_id=g.user.id)
+        db.session.add(review)
+        db.session.commit()
+        return redirect('/user')
+
+    return render_template('reviews/add_location_review.html', locations=locations)
+
+
+
+@app.route('/user/reviews')
+def view_user_reviews():
+    """Allow users to view their reviews"""
+    reviews = Review.query.filter_by(user_id=g.user.id).all()
+    return render_template('reviews/location_review_id.html', reviews=reviews)

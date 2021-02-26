@@ -268,3 +268,31 @@ class UserViewTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertIn("verify", html)
+
+    def test_add_review(self):
+        """Can a user add a review for a testing location?"""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            resp = c.get('/add/location/review')
+            html = resp.get_data(as_text=True)
+            self.assertIn('love', html)
+
+            resp = c.post('/add/location/review', data={'test-site': '9191 S Polk Street Dallas', 'description': 'Great!', 'user_id': self.testuser.id}, follow_redirects=True)
+
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("Hello", html)
+
+
+    def test_view_review(self):
+        """Can a user view their reviews for a testing location?"""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+            
+            resp = c.get('/user/reviews')
+            html = resp.get_data(as_text=True)
+            self.assertIn('Your Reviews', html)
