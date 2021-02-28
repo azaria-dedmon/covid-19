@@ -73,7 +73,7 @@ def show_user():
     url = f'https://covid-19-testing.github.io/locations/{state.lower()}/complete.json'
     res = requests.get(url)
     testing_data = res.json()
-    return render_template('users/user_homepage.html', testing_data=testing_data)
+    return render_template('users/user_homepage.html', testing_data=testing_data, state=state)
 
 
 @app.route('/login', methods=["GET", "POST"])
