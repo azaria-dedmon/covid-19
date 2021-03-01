@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="contain">
+    <h1>{{ address }}</h1>
+    <a href="/add/location/review"><h4>Go back</h4></a>
+    <div class="reviews">
+        {% for review in reviews %}
+            <p>
+                <span id="review_user">{{ review.user.username }} said </span>"{{ review.description }}"
+            </p>
+        {% endfor %}  
+    </div>   
+</div>
+{% endblock %} 

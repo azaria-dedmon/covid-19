@@ -119,3 +119,11 @@ li a:hover {
 #review_user {
   font-weight: bold;
 }
+
+.find-reviews {
+  margin-top: 5%;
+}
+
+#review-description {
+  font-style: italic;
+}

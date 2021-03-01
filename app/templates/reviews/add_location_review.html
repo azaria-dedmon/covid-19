@@ -12,5 +12,14 @@
         <textarea name="description" rows="10" cols="50">Description</textarea><br>
         <button type='submit'>Submit Review</button>
     </form>
+    <div class="find-reviews">
+        <h3>Find reviews on testing sites near you</h3>
+        <form action="/location/review">
+            <input type="text" name="address" placeholder="Search address & city">
+            <input type="submit" value="search">
+        </form>
+        <p>e.g. 2315 Stockton Blvd Sacramento</p>
+    </div>
+
 </div>
 {% endblock %} 
