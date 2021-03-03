@@ -1,6 +1,6 @@
 """User View tests."""
 from unittest import TestCase
-from models import db, User
+from models import db, User, Review
 from app import create_app, CURR_USER_KEY
 from sqlalchemy.exc import InvalidRequestError
 
@@ -27,6 +27,11 @@ class UserViewTestCase(TestCase):
                             None)
         self.uid = 1111
         self.testuser.id = self.uid
+        db.session.commit()
+
+        self.testreview = Review(location='9191 S Polk Street Dallas', description='Just testing this out', user_id=self.testuser.id)
+        self.rid = 2222
+        self.testreview.id = self.rid
         db.session.commit()
 
     def tearDown(self):
@@ -296,3 +301,14 @@ class UserViewTestCase(TestCase):
             resp = c.get('/user/reviews')
             html = resp.get_data(as_text=True)
             self.assertIn('Your Reviews', html)
+
+
+    def test_search_review(self):
+        """Can a user search reviews for a testing location?"""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            resp = c.get('/location/review?address=9191+S+Polk+Street+Dallas')
+            html = resp.get_data(as_text=True)
+            self.assertIn('Dallas', html)

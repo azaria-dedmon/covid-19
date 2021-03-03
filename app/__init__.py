@@ -184,3 +184,11 @@ def view_user_reviews():
     """Allow users to view their reviews"""
     reviews = Review.query.filter_by(user_id=g.user.id).all()
     return render_template('reviews/location_review_id.html', reviews=reviews)
+
+
+@app.route('/location/review')
+def get_location_reviews():
+    """Allows users to see testing location reviews."""
+    address = request.args.get('address')
+    reviews = Review.query.filter_by(location=address).all()
+    return render_template('reviews/location_review.html', reviews=reviews,  address=address)
