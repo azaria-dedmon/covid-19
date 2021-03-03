@@ -312,3 +312,25 @@ class UserViewTestCase(TestCase):
             resp = c.get('/location/review?address=9191+S+Polk+Street+Dallas')
             html = resp.get_data(as_text=True)
             self.assertIn('Dallas', html)
+    
+    def test_edit_review(self):
+        """Can a user edit their reviews?"""
+
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+
+            review = Review(location='9191 S Polk Street Dallas', description='Tester', user_id=self.testuser.id)
+            review.id = 1
+            db.session.add(review)
+            db.session.commit()
+
+            resp = c.get(f'/edit/review/{review.id}')
+            html = resp.get_data(as_text=True)
+            self.assertIn('Edit', html)
+
+            resp = c.post(f'/edit/review/{review.id}', data={'description': 'Change!'}, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("Hello", html)

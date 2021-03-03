@@ -7,6 +7,7 @@
             <p>
                 <span id="review_user">For {{ review.location }}</span><br>
                 <span id="review_user">You said </span>"{{ review.description }}"
+                <a href="/edit/review/{{review.id}}">Edit Review</a>
             </p>
         {% endfor %}  
     </div>   
