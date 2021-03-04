@@ -203,3 +203,13 @@ def edit_user_review(review_id):
         return redirect('/user')
 
     return render_template('reviews/edit_review.html', form=form)
+
+@app.route('/delete/review/<int:review_id>', methods=["GET", "POST"])
+def delete_user_review(review_id):
+    """Allow users to delete their reviews"""
+    review = Review.query.get(review_id)
+
+    db.session.delete(review)
+    db.session.commit()
+    flash("Review was successfully deleted!", "success")
+    return redirect('/user')
