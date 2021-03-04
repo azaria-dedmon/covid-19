@@ -3,7 +3,7 @@ import os
 import requests
 from flask import Flask, session, g, render_template, redirect, request, flash
 from flask_bcrypt import Bcrypt
-from forms import RegisterUser, LoginUser, EditUser, DeleteUser
+from forms import RegisterUser, LoginUser, EditUser, DeleteUser, EditReview
 from models import connect_db, User, db, testing_states, Review
 from config import config
 from sqlalchemy.exc import IntegrityError
@@ -192,3 +192,14 @@ def get_location_reviews():
     address = request.args.get('address')
     reviews = Review.query.filter_by(location=address).all()
     return render_template('reviews/location_review.html', reviews=reviews,  address=address)
+
+@app.route('/edit/review/<int:review_id>', methods=["GET", "POST"])
+def edit_user_review(review_id):
+    review = Review.query.get(review_id)
+    form = EditReview(obj=review)
+    if g.user and form.validate_on_submit():
+        review.description = form.description.data
+        db.session.commit()
+        return redirect('/user')
+
+    return render_template('reviews/edit_review.html', form=form)

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SelectField
+from wtforms import StringField, PasswordField, SelectField, TextAreaField
 from wtforms.validators import DataRequired
 from models import testing_states
 
@@ -34,3 +34,7 @@ class EditUser(FlaskForm):
 class DeleteUser(FlaskForm):
     """Form for checking user's password before account deletion"""
     password = PasswordField('Password')
+
+class EditReview(FlaskForm):
+    """Form for editing user reviews"""
+    description = TextAreaField('Description')
