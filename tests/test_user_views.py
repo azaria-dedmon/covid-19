@@ -334,3 +334,20 @@ class UserViewTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertIn("Hello", html)
+
+    def test_delete_review(self):
+        """Can a user delete their reviews?"""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess[CURR_USER_KEY] = self.testuser.id
+            review = Review(location='9191 S Polk Street Dallas', description='Tester', user_id=self.testuser.id)
+            review.id = 1
+            db.session.add(review)
+            db.session.commit()
+
+            resp = c.post(f'/delete/review/{review.id}', follow_redirects=True)
+
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Hello', html)
