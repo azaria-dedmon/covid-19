@@ -17,10 +17,13 @@
             <input type="text" placeholder="Search users">
             {% if not g.user %}
             <li><a href="/login">Login</a></li>
+            <li><a href=“/location”>Testing Site Reviews</a></li>
+            <li><a href="/">Home</a></li>
             {% else %}
             <li><a href="/logout">Logout</a></li>
+            <li><a href=“/location”>Testing Site Reviews</a></li>
+            <li><a href="/user">Home</a></li>
             {% endif %}
-            <li><a href="/">Home</a></li>
           </ul>
     </div>
     </div>
