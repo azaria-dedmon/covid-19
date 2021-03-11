@@ -11,9 +11,13 @@
 <body>
     <h2 id="signup-details">Please Signup Below</h2> 
     <div class="form">
-    {% for category, message in get_flashed_messages(with_categories=True) %}
-        <div class="msg">{{ message }}</div>
-    {% endfor %}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for msg in messages %}
+            <p id="invalid-acct-msg">{{msg}}</p>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
     <form method="POST" id='login-form'>
         {{ form.hidden_tag() }}
             {% for field in form if field.widget.input_type != 'hidden' %}
