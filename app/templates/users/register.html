@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/static/index.css">
 </head>
 <body>
+    <h2 id="signup-details">Please Signup Below</h2> 
     <div class="form">
     {% for category, message in get_flashed_messages(with_categories=True) %}
         <div class="msg">{{ message }}</div>
@@ -23,7 +24,7 @@
             {% endfor %}
         <button class="btn btn-primary btn-block btn-lg">Sign Up</button>
     </form>
-    <a href="/login">Have an account already?</a>
+    <a href="/login">Already have an account?</a>
     <a href="/">Go back</a>
     </div>
 </body>

@@ -35,7 +35,7 @@ body {
   text-align: center;
   width: 50%;
   margin-left: 25%;
-  margin-top: 15%;
+  margin-top: 3%;
 }
 
 .msg {
@@ -136,4 +136,9 @@ li a:hover {
 
 .search {
   margin-top: 1.1%;
+}
+
+#signup-details {
+  text-align: center;
+  margin-top: 10%;
 }
