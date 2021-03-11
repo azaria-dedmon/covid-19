@@ -84,7 +84,6 @@ def login():
         user = User.authenticate(form.username.data, form.password.data)
         if user:
             do_login(user)
-            flash(f"Hello, {user.username}!", "success")
             return redirect("/user")
         flash("Invalid credentials.", 'danger')
 

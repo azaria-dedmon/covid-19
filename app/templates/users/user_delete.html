@@ -10,6 +10,13 @@
 </head>
 <body>
     <h4 id='delete-acct'>Please verify your account password to confirm account deletion</h4>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <p id="invalid-pw">{{msg}}</p>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
     <div class="form">
         <form method="POST" id='login-form'>
             {{ form.hidden_tag() }}

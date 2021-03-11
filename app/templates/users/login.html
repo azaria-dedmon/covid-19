@@ -10,6 +10,13 @@
 </head>
 <body>
     <h2 id="login-details">Please Login Below</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <p id="delete-acct-msg">{{msg}}</p>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
     <div class="form">
         <form method="POST" id='login-form'>
             {{ form.hidden_tag() }}

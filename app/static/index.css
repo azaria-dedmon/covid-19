@@ -143,3 +143,13 @@ li a:hover {
   text-align: center;
   margin-top: 10%;
 }
+
+#invalid-acct-msg {
+  color: red;
+  font-weight: bold;
+}
+
+#invalid-pw {
+  text-align: center;
+  color: red;
+}
