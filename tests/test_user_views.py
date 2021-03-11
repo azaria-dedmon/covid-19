@@ -128,7 +128,7 @@ class UserViewTestCase(TestCase):
 
             html = resp.get_data(as_text=True)
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('Need to register?', html)
+            self.assertIn('Register Here', html)
 
     def test_homepage(self):
         """Are we on the current user's homepage?"""

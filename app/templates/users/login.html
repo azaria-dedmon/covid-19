@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/static/index.css">
 </head>
 <body>
+    <h2 id="login-details">Please Login Below</h2>
     <div class="form">
         <form method="POST" id='login-form'>
             {{ form.hidden_tag() }}
@@ -20,7 +21,7 @@
                 {% endfor %}
             <button class="btn btn-primary btn-block btn-lg">Log in</button>
         </form>
-        <a href="/register">Need to register?</a>
+        <a href="/register">Register Here | </a>
         <a href="/">Go back</a>
         </div>
 </body>
