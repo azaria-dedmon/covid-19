@@ -16,15 +16,17 @@
       <li><a href="/register">Register</a></li>
       {% else %}
       <form action="/search-user" method="get" id="search-form">
-        <input class="search" type="text" name="username" placeholder="Search username">
-        <input class="search" type="submit" value="search">
+        <input class="search" type="text" name="username" placeholder="Enter Username">
+        <input id="search-btn"class="search" type="submit" value="Search">
       </form>
       <li><a href="/logout">Logout</a></li>
-      <li><a href="/add/location/review">Testing Site Reviews</a></li>
-      <li><a href="/user">Home</a></li>
+      <li><a href="/add/location/review">Review Testing Sites</a></li>
+      <li><a href="/user/reviews">User Reviews</a></li>
+      <li><a href="/user">My Dashboard</a></li>
+      <li><a href="/">Home</a></li>
       {% endif %}
     </ul>
   </div>
   {% block content %}{% endblock %}
 </body>
-</html> 
+</html>  

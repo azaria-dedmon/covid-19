@@ -16,10 +16,11 @@ body {
 }
 
 .container {
-  width: 50%;
+  width: 40%;
   margin-left: 25%;
   margin-top: 5%;
   float: right;
+  font-style: Verdana;
 }
 
 .contain {
@@ -42,22 +43,17 @@ body {
   color: red;
 }
 
-.about {
-  margin-top: 7%;
-  float: left;
-}
-
 #profile-pic {
-  height: 150px;
-  width: 250px;
+  vertical-align: middle;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
 }
 
 .state-listing {
   text-align: center;
-}
-
-.home-page-name {
-  text-align: center;
+  margin-bottom: 10%;
+  font-size: 21px;
 }
 
 ul {
@@ -80,7 +76,7 @@ li a {
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
-}	
+} 
 
 li a:hover {
   background-color: #9c4141;
@@ -136,10 +132,108 @@ li a:hover {
 
 .search {
   margin-top: 1.1%;
+  margin-left: 0.5%;
 }
 
 #signup-details,
 #login-details {
   text-align: center;
   margin-top: 10%;
+}
+
+#invalid-acct-msg {
+  color: red;
+  font-weight: bold;
+}
+
+#invalid-pw {
+  text-align: center;
+  color: red;
+}
+
+.user-info {
+  margin-top: 3%;
+  margin-right: 5%;
+  margin-bottom: 6%;
+}
+
+#pencil {
+  width: 5%;
+  height: 4%;
+  float: right;
+}
+
+#second-para {
+  color: red;
+  font-weight: 300;
+}
+
+#search-btn {
+  width: 8%;
+}
+
+.user-banner,
+.explain-symptoms {
+  height: 200px;
+}
+
+.jumbotron:nth-of-type(2) {
+  width: 30%;
+  margin-left: 15%;
+  float: left;
+  font-weight: 900;
+}
+
+.jumbotron:nth-of-type(3) {
+  width: 30%;
+  float: right;
+  margin-right: 15%;
+}
+
+.heading-details {
+  color: #508dbf;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.about {
+  margin-top: 0%;
+  padding-top: 1%;
+  float: left;
+  margin-left: 3%;
+  background-color: #f2f2f2;
+  border: 2px solid #f2f2f2;
+  border-radius: 5px;
+  text-align: left;
+  padding-left: 3%;
+  padding-bottom: 4%;
+  width: 45%;
+  font-weight: 200;
+  color: black;
+  font-size: 21px;
+}
+
+.test-locations {
+  margin-top: 0%;
+  padding: 1% -5px 4% 3%;
+  float: right;
+  margin-right: 3%;
+  width: 45%;
+  background-color: #f2f2f2;
+  border: 2px solid #f2f2f2;
+  border-radius: 5px;
+  text-align: left;
+  font-weight: 200;
+  font-size: 21px;
+}
+
+.user-details {
+  font-size: 20px;
 }

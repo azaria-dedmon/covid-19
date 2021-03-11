@@ -1,31 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class='home-page-name'>
-    <h1>Hello, {{g.user.username}}!</h2>
-</div>
-<div class='about'>
-    <img src="{{ g.user.image }}" alt="Image for {{ g.user.username }}" id="profile-pic">
-    <h5>Name: {{g.user.firstname}} {{g.user.lastname}}</h5>
-    <h5>Email: {{g.user.email}}</h5>
-    <h5>State: {{g.user.state}}</h5>
-    <h5>Vaccination Date: {{g.user.vax_date}}</h5>
-    <h5>Covid Status: {{g.user.covid_status}}</h5>
-    <a href="/user/edit">Edit info</a><br>
-    <a href="/">Homepage</a><br>
-    <a href="/user/reviews">View your reviews</a>
-</div>
-<div class='container'>
-    <div class='state-listing'>
-        <h3>Here are {{g.user.state}}'s testing locations:</h3>
-    </div>  
-    <div class="jumbotron">
+<div class="contain">
+    <div class="jumbotron" class="user-banner">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for msg in messages %}
+        <p id="delete-acct-msg">{{msg}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h3>Welcome, {{g.user.username}}!</h3>
+        <a href="/user/edit"><img src="../../static/images/avatar.jpg" class="avatar" /> </a>
+        <div class="explain-symptoms">
+            <p>
+                As a reminder, it is important to understand that we must take the
+                threat of Covid-19 very seriously. Regardless of whether or not you are
+                considered "high-risk", it is wise to still wear a mask and socially
+                distance yourself in order to decrease the possibility of spreading the
+                illness to those who are more likely to be greatly impacted by
+                the disease. Once again, these are the signs/symptoms to look out for:
+            </p>
+            <p id='second-para'>
+                Fever or chills,
+                Cough,
+                Shortness of breath or difficulty breathing,
+                Fatigue,
+                Muscle or body aches,
+                Headache,
+                New loss of smell or taste,
+                Sore throat,
+                Congestion or runny nose,
+                Nausea or vomiting,
+                Diarrhoea
+            </p>
+        </div>
+    </div>
+
+    <div class="about">
+        <div class="user-info">
+            <h3>Personal Information <a href="/user/edit"><img id="pencil" alt='Edit'
+                        src="../../static/images/pencil.png"></a></h3>
+        </div>
+        <div>
+            <img src="../../static/images/avatar.jpg" id="profile-pic" />
+        </div>
+        <h4><span class="heading-details">Name: </span></h4>
+        <p><span class="user-details">{{g.user.firstname}} {{g.user.lastname}}</span></p>
+        <h4><span class="heading-details">Email: </span></h4>
+        <p><span class="user-details">{{g.user.email}}</span></p>
+        <h4><span class="heading-details">State: </span></h4>
+        <p><span class="user-details">{{g.user.state}}</span></p>
+        <h4><span class="heading-details">Vaccination Date: </span></h4>
+        <p><span class="user-details">{{g.user.vax_date}}</span></p>
+        <h4><span class="heading-details">Covid Status: </span></h4>
+        <p><span class="user-details">{{g.user.covid_status}}</span></p>
+    </div>
+
+    <div class="test-locations">
+        <div class='state-listing'>
+            <h3>Here are {{g.user.state}}'s testing locations:</h3>
+        </div>
         {% for location in testing_data%}
-            <a href="/location?state={{state}}"><h4>{{location["name"]}}</h4></a>
-            {% for place in location["physical_address"] %}
-                <p>{{place["address_1"]}}, {{place["city"]}}, 
-                    {{place["state_province"]}} {{place["postal_code"]}}
-                </p>
-            {% endfor %}
+        <a href="/location?state={{state}}">
+            <h4 class="heading-details">{{location["name"]}}</h4>
+        </a>
+        {% for place in location["physical_address"] %}
+        <p>
+            {{place["address_1"]}}, {{place["city"]}},
+            {{place["state_province"]}} {{place["postal_code"]}}
+        </p>
+        {% endfor %}
         {% endfor %}
     </div>
 </div>

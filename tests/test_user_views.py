@@ -140,7 +140,7 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('Hello, test', html)
+            self.assertIn('Welcome, test', html)
 
     def test_user_logout(self):
         """Can users logout successfully?"""
@@ -289,7 +289,7 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn("Hello", html)
+            self.assertIn("Welcome", html)
 
 
     def test_view_review(self):
@@ -333,7 +333,7 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn("Hello", html)
+            self.assertIn("Welcome", html)
 
     def test_delete_review(self):
         """Can a user delete their reviews?"""
@@ -350,4 +350,4 @@ class UserViewTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn('Hello', html)
+            self.assertIn('Welcome', html)
