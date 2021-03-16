@@ -14,15 +14,19 @@
     <div class="nav">
       <div class="nav">
         <ul>
-            <input type="text" placeholder="Search users">
+          <form action="/search-user" method="get" id="search-form">
+            <input class="search" type="text" name="username" placeholder="Enter Username">
+            <input class="search-btn" type="submit" value="Search">
+          </form>
             {% if not g.user %}
             <li><a href="/login">Login</a></li>
-            <li><a href=“/location”>Testing Site Reviews</a></li>
             <li><a href="/">Home</a></li>
             {% else %}
             <li><a href="/logout">Logout</a></li>
-            <li><a href=“/location”>Testing Site Reviews</a></li>
-            <li><a href="/user">Home</a></li>
+            <li><a href="/add/location/review">Review Testing Sites</a></li>
+            <li><a href="/user/reviews">User Reviews</a></li>
+            <li><a href="/user">My Dashboard</a></li>
+            <li><a href="/">Home</a></li>
             {% endif %}
           </ul>
     </div>
@@ -76,6 +80,8 @@
           .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>'))
           .addTo(map);
         });  
+
+        map.addControl(new mapboxgl.NavigationControl());
     </script>
 </body>
 </html> 

@@ -6,7 +6,7 @@ body {
 
 #map {
   position: absolute;
-  top: 7%;
+  top: 6.6%;
   bottom: 0;
   width: 100%;
 }
@@ -168,8 +168,8 @@ li a:hover {
   font-weight: 300;
 }
 
-#search-btn {
-  width: 8%;
+.search-btn {
+  width: 11%;
 }
 
 .user-banner,
