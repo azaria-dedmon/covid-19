@@ -11,7 +11,10 @@
 <body>
     <div class="nav">
         <ul>
-            <input type="text" placeholder="Search users">
+            <form action="/search-user" method="get" id="search-form">
+                <input class="search" type="text" name="username" placeholder="Enter Username">
+                <input class="search-btn" type="submit" value="Search">
+            </form>
             <li><a href="/logout">Logout</a></li>
             <li><a href=“/location”>Testing Site Reviews</a></li>
             <li><a href="/user">Home</a></li>
