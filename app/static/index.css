@@ -133,6 +133,15 @@ li a:hover {
 .search {
   margin-top: 1.1%;
   margin-left: 0.5%;
+  margin-bottom: 2%;
+  width: 300px;
+  height: 27px;
+}
+
+.search-btn {
+  margin-top: 1.1%;
+  margin-left: 0.5%;
+  height: 27px;
 }
 
 #signup-details,
@@ -166,10 +175,6 @@ li a:hover {
 #second-para {
   color: red;
   font-weight: 300;
-}
-
-.search-btn {
-  width: 10.5%;
 }
 
 .user-banner,
