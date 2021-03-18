@@ -18,6 +18,8 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     connect_db(app)
+    with app.app_context():
+        db.create_all()
     return app
 
 @app.before_request
