@@ -29,6 +29,7 @@ This app helps people find their nearest covid-19 testing site.
 -   Mapbox GL JS
 
 ### Resources
+- Database Schema: https://dbdiagram.io/d/6005df5680d742080a36d952
 -   Covid-19 API: https://documenter.getpostman.com/view/8854915/SzS7PR3t?version=latest
 -   Mapquest API (Geocoding): https://developer.mapquest.com/
 -   Mapbox API: https://docs.mapbox.com/api/overview/
