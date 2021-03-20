@@ -10,7 +10,6 @@ def connect_db(app):
     db.app = app   
     db.init_app(app)
     db.create_all()
-    
         
 class User (db.Model):
     """User in the system"""
