@@ -5,7 +5,7 @@
 
 ## Description
 This app helps people find their nearest covid-19 testing site.
-
+https://covid-19-testing-app.herokuapp.com/
 ### Features
 #### All users can
 -   View testing locations on our interactive map.
